@@ -21,6 +21,4 @@ jobs:
       id-token: write
     with:
       registry: registry.hub.docker.com/sameraburabie
-      image_name: wireguard
-      username: sameraburabie
-      password: $3cr3tC0mm0n
+      image_name: wireguard      
