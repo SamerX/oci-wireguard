@@ -20,5 +20,5 @@ jobs:
       security-events: write
       id-token: write
     with:
-      registry: ghcr.io/sameraburabie
+      registry: ghcr.io/samerx
       image_name: wireguard      
