@@ -20,5 +20,5 @@ jobs:
       security-events: write
       id-token: write
     with:
-      registry: hub.docker.io/sameraburabie
+      registry: registry.hub.docker.io/sameraburabie
       image_name: wireguard
