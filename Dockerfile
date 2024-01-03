@@ -11,3 +11,4 @@ USER wireguard
 WORKDIR /home/wireguard
 COPY ./Entrypoint.sh ./Entrypoint.sh
 CMD ["/bin/sh", "-c", "/home/wireguard/Entrypoint.sh"]
+
