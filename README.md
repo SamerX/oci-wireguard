@@ -1,4 +1,4 @@
-# oci-wireguard
+# wireguard
 A multi-arch alpine based container image for wireguard
 
 # How to use
