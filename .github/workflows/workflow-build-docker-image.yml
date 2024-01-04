@@ -3,12 +3,14 @@ name: 'Build Wireguard Docker Image'
 on:
   workflow_dispatch:
 jobs:
-  docker:
-    name: Build and push Docker images
-    uses: docker/build-push-action@v5.1.0
+  build:
+    name: 'OCI'
+    uses: samerx/github-workflows/.github/workflows/oci-build-image.yml@main
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+      id-token: write
     with:
-      registry: ghcr.io
-      tags: samerx/wireguard:latest
-       
-
-  
+      registry: ghcr.io/samerx
+      image_name: wireguard      
