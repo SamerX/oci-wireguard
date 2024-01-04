@@ -1,3 +1,0 @@
-securityContext:
-  seccompProfile:
-    type: RuntimeDefault
