@@ -2,14 +2,6 @@
 name: 'Build Wireguard Docker Image'
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '22 4 * * *'
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
 jobs:
   build:
     name: 'OCI'
