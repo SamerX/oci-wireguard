@@ -10,7 +10,8 @@ jobs:
       contents: read
       packages: write
       security-events: write
-      id-token: write
+      id-token: write      
     with:
       registry: ghcr.io/samerx
       image_name: wireguard      
+

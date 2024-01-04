@@ -33,6 +33,7 @@ RUN mkdir -p /var/lib/wgrest
 
 # Expose port
 EXPOSE 8000/tcp
+EXPOSE 51820/udp
 
 # Set entrypoint to run wgrest and Entrypoint.sh
 ENTRYPOINT ["/bin/sh", "-c", "/usr/local/bin/wgrest --listen '127.0.0.1:8000' & ./Entrypoint.sh"]
