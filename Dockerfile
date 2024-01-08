@@ -1,5 +1,5 @@
 # Build environment
-FROM golang:alpine3.18 as build-env
+FROM golang:alpine3.18 AS build-env
 
 # Install dependencies
 RUN apk add --no-cache git gcc
@@ -32,8 +32,8 @@ RUN chmod +x /usr/local/bin/wgrest
 RUN mkdir -p /var/lib/wgrest 
 
 # Expose port
-EXPOSE 8000/tcp
+EXPOSE 51800/tcp
 EXPOSE 51820/udp
 
 # Set entrypoint to run wgrest and Entrypoint.sh
-ENTRYPOINT ["/bin/sh", "-c", "/usr/local/bin/wgrest --listen '127.0.0.1:8000' && ./Entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "/usr/local/bin/wgrest --listen '127.0.0.1:51800' && ./Entrypoint.sh"]
