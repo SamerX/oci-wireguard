@@ -17,23 +17,24 @@ RUN export appVersion=$(git describe --tags `git rev-list -1 HEAD`) && \
 # Final image
 FROM alpine:3.18
 
+RUN mkdir /app
+WORKDIR /app
 # Install WireGuard
 RUN apk add --no-cache wireguard-tools
 
 # Copy wgrest binary
-COPY --from=build-env /app/wgrest /usr/local/bin/wgrest
+COPY --from=build-env /app/wgrest /app/wgrest
 
 # Copy Entrypoint script
 COPY Entrypoint.sh ./Entrypoint.sh
 RUN sed -i 's/\r$//' Entrypoint.sh && \
     chmod +x Entrypoint.sh
 
-RUN chmod +x /usr/local/bin/wgrest
-RUN mkdir -p /var/lib/wgrest 
-
 # Expose port
 EXPOSE 51800/tcp
 EXPOSE 51820/udp
 
+USER root
+
 # Set entrypoint to run wgrest and Entrypoint.sh
-ENTRYPOINT ["/bin/sh", "-c", "/usr/local/bin/wgrest --listen '127.0.0.1:51800' && ./Entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "/app/wgrest --listen '127.0.0.1:51800' && ./Entrypoint.sh"]
