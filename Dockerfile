@@ -1,5 +1,5 @@
 # Build environment
-FROM golang:alpine3.18 AS build-env
+FROM golang:alpine3.18 AS phase-bulid
 
 # Install dependencies
 RUN apk add --no-cache git gcc
@@ -15,7 +15,7 @@ RUN export appVersion=$(git describe --tags `git rev-list -1 HEAD`) && \
       -o wgrest cmd/wgrest-server/main.go
 
 # Final image
-FROM alpine:3.18
+FROM alpine:3.18 AS phase-final
 
 RUN mkdir /app
 RUN mkdir -p /var/lib/wgrest/v1
@@ -29,7 +29,7 @@ RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
     chmod +x ./app/Entrypoint.sh
 
 # Copy wgrest binary
-COPY --from=build-env ./app/wgrest ./app/wgrest
+COPY --from=phase-bulid ./app/wgrest ./app/wgrest
 # Expose port
 EXPOSE 51800/tcp
 EXPOSE 51820/udp
