@@ -28,6 +28,8 @@ COPY ./Entrypoint.sh ./app/Entrypoint.sh
 RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
     chmod +x ./app/Entrypoint.sh
 
+USER 1000
+
 # Copy wgrest binary
 COPY --from=build-env ./app/wgrest ./app/wgrest
 # Expose port
