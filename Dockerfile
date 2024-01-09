@@ -23,16 +23,10 @@ RUN mkdir -p /var/lib/wgrest/v1
 # Install WireGuard
 RUN apk add --no-cache wireguard-tools sudo
 
-RUN addgroup -g 1000 wireguard && \
-  adduser -u 1000 -G wireguard -h /app/wireguard -D wireguard && \
-  echo '%wheel ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wheel && \
-  adduser wireguard wheel
-
-USER wireguard
-WORKDIR /app/wireguard
-
 # Copy Entrypoint script
-COPY Entrypoint.sh ./Entrypoint.sh
+COPY Entrypoint.sh ./app/Entrypoint.sh
+RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
+    chmod +x ./app/Entrypoint.sh
 
 # Copy wgrest binary
 COPY --from=build-env /app/wgrest /app/wgrest
@@ -41,4 +35,4 @@ EXPOSE 51800/tcp
 EXPOSE 51820/udp
 
 # Set entrypoint to run wgrest and Entrypoint.sh
-ENTRYPOINT ["/bin/sh", "-c", "/app/wgrest --listen '127.0.0.1:51800' && ./Entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "/app/wgrest --listen '127.0.0.1:51800' && ./app/Entrypoint.sh"]
