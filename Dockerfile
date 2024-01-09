@@ -18,6 +18,8 @@ RUN export appVersion=$(git describe --tags `git rev-list -1 HEAD`) && \
 FROM alpine:3.18
 
 RUN mkdir /app
+RUN mkdir -p /var/lib/wgrest/v1
+
 WORKDIR /app
 # Install WireGuard
 RUN apk add --no-cache wireguard-tools
