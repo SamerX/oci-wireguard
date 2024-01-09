@@ -20,18 +20,16 @@ FROM alpine:3.18
 RUN mkdir /app
 RUN mkdir -p /var/lib/wgrest/v1
 
-WORKDIR /app
 # Install WireGuard
 RUN apk add --no-cache wireguard-tools
-
-# Copy wgrest binary
-COPY --from=build-env /app/wgrest /app/wgrest
 
 # Copy Entrypoint script
 COPY Entrypoint.sh ./Entrypoint.sh
 RUN sed -i 's/\r$//' Entrypoint.sh && \
     chmod +x Entrypoint.sh
 
+# Copy wgrest binary
+COPY --from=build-env /app/wgrest /app/wgrest
 # Expose port
 EXPOSE 51800/tcp
 EXPOSE 51820/udp
