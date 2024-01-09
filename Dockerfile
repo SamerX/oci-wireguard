@@ -21,14 +21,12 @@ RUN mkdir /app
 RUN mkdir -p /var/lib/wgrest/v1
 
 # Install WireGuard
-RUN apk add --no-cache wireguard-tools sudo
+RUN apk add --no-cache wireguard-tools
 
 # Copy Entrypoint script
 COPY ./Entrypoint.sh ./app/Entrypoint.sh
 RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
     chmod +x ./app/Entrypoint.sh
-
-USER 1000
 
 # Copy wgrest binary
 COPY --from=build-env ./app/wgrest ./app/wgrest
