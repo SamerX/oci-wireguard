@@ -25,8 +25,6 @@ RUN apk add --no-cache wireguard-tools sudo
 
 # Copy Entrypoint script
 COPY Entrypoint.sh ./app/Entrypoint.sh
-RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
-    chmod +x ./app/Entrypoint.sh
 
 # Copy wgrest binary
 COPY --from=build-env /app/wgrest /app/wgrest
