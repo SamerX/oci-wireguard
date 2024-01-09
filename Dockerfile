@@ -33,4 +33,4 @@ EXPOSE 51800/tcp
 EXPOSE 51820/udp
 
 # Set entrypoint to run wgrest and Entrypoint.sh
-ENTRYPOINT ["/bin/sh", "-c", "/app/wgrest --listen '127.0.0.1:51800' && ./app/Entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "./app/wgrest --listen '127.0.0.1:51800' && ./app/Entrypoint.sh"]
