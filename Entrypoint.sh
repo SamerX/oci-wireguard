@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "starting wgrest..."
-./app/wgrest --listen '127.0.0.1:51800' &
+./app/wgrest --listen '127.0.0.1:8080' &
 
 stop () {
     echo "stopping wg0 ..."
