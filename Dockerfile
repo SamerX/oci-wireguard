@@ -1,18 +1,18 @@
 # Build environment
-# FROM golang:alpine3.18 AS phase-bulid
+FROM golang:alpine3.18 AS phase-bulid
 
-# # Install dependencies
-# RUN apk add --no-cache git gcc
+# Install dependencies
+RUN apk add --no-cache git gcc
 
-# # Clone wgrest repository
-# RUN git clone https://github.com/suquant/wgrest /app
-# WORKDIR /app
+# Clone wgrest repository
+RUN git clone https://github.com/suquant/wgrest /app
+WORKDIR /app
 
-# # Build wgrest
-# RUN export appVersion=$(git describe --tags `git rev-list -1 HEAD`) && \
-#     CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
-#       -ldflags "-X main.appVersion=$appVersion" \
-#       -o wgrest cmd/wgrest-server/main.go
+# Build wgrest
+RUN export appVersion=$(git describe --tags `git rev-list -1 HEAD`) && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
+      -ldflags "-X main.appVersion=$appVersion" \
+      -o wgrest cmd/wgrest-server/main.go
 
 # Final image
 FROM alpine:3.18 AS phase-final
