@@ -15,7 +15,7 @@ RUN export appVersion=$(git describe --tags `git rev-list -1 HEAD`) && \
       -o wgrest cmd/wgrest-server/main.go
 
 # Final image
-FROM alpine:3.18 AS phase-final
+FROM nginx:latest AS phase-final
 
 RUN mkdir /app
 RUN mkdir -p /var/lib/wgrest/v1
