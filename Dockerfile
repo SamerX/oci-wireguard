@@ -30,9 +30,10 @@ RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
 
 # Copy wgrest binary
 COPY --from=phase-bulid ./app/wgrest ./app/wgrest
+
 # Expose port
 EXPOSE 8080/tcp
-# EXPOSE 9090/udp
+EXPOSE 9090/udp
 
-# Set entrypoint to run wgrest and Entrypoint.sh
-ENTRYPOINT ["/bin/sh", "-c", "./app/Entrypoint.sh"]
+# Set command to run wgrest and Entrypoint.sh
+CMD ["/bin/sh", "-c", "./app/Entrypoint.sh"]
