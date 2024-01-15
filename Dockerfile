@@ -35,5 +35,7 @@ COPY --from=phase-bulid ./app/wgrest ./app/wgrest
 #EXPOSE 8080/tcp
 EXPOSE 9090/udp
 
+USER 1001
+
 # Set command to run wgrest and Entrypoint.sh
-ENTRYPOINT ["/bin/sh", "-c", "./app/Entrypoint.sh"]
+ENTRYPOINT ["./app/Entrypoint.sh"]
