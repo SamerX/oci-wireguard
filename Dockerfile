@@ -15,25 +15,25 @@ RUN export appVersion=$(git describe --tags `git rev-list -1 HEAD`) && \
       -o wgrest cmd/wgrest-server/main.go
 
 # Final image
-FROM nginx:latest AS phase-final
+FROM alpine:3.18 AS phase-final
 
 RUN mkdir /app
 RUN mkdir -p /var/lib/wgrest/v1
 
 # Install WireGuard
-# RUN apk add --no-cache wireguard-tools
+RUN apk add --no-cache wireguard-tools
 
 # Copy Entrypoint script
-# COPY ./Entrypoint.sh ./app/Entrypoint.sh
-# RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
-#     chmod +x ./app/Entrypoint.sh
+COPY ./Entrypoint.sh ./app/Entrypoint.sh
+RUN sed -i 's/\r$//' ./app/Entrypoint.sh && \
+    chmod +x ./app/Entrypoint.sh
 
 # Copy wgrest binary
 COPY --from=phase-bulid ./app/wgrest ./app/wgrest
 
 # Expose port
 EXPOSE 8080/tcp
-# EXPOSE 9090/udp
+EXPOSE 9090/udp
 
 # Set command to run wgrest and Entrypoint.sh
-CMD ["/bin/sh", "-c", "./app/wgrest --listen '127.0.0.1:8080'"]
+ENTRYPOINT ["/bin/sh", "-c", "./app/Entrypoint.sh"]
